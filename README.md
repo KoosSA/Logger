@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/KoosSA/Logger/workflows/Build%20&%20Release/badge.svg)](https://github.com/KoosSA/Logger/actions)
+[![Actions Status](https://github.com/KoosSA/Logger/workflows/Release-latest/badge.svg)](https://github.com/KoosSA/Logger/actions)
 
 # Logger Library Readme
 
