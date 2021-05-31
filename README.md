@@ -1,3 +1,5 @@
+[![Logger-master Actions Status](https://github.com/KoosSA/Logger/workflows/build/badge.svg)](https://github.com/KoosSA/Logger/actions)
+
 # Logger Library Readme
 
 <p> <b> <font size=4px> Using: </font> <br>
