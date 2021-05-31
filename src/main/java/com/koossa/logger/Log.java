@@ -17,6 +17,7 @@ public class Log {
 	private static Map<String, LogInstance> instances = new HashMap<String, LogInstance>();
 	private static File folder;
 	private static boolean debug;
+	private static int maxFiles = 10;
 	
 	/**
 	 * Initialises the logger for the current {@link Thread}.
@@ -32,7 +33,19 @@ public class Log {
 		}
 		LogInstance instance = new LogInstance();
 		instance.init(new File(folder, name), debug);
+		instance.setMaxFiles(maxFiles);
 		instances.put(name, instance);
+	}
+	
+	/**
+	 * Sets the maximum amount of log files to keep per folder (aka per {@link LogInstance}.
+	 * @param maxFiles
+	 */
+	public static void setMaxLogFiles(int maxFiles) {
+		Log.maxFiles = maxFiles;
+		instances.values().forEach(i -> {
+			i.setMaxFiles(maxFiles);
+		});
 	}
 	
 	/**
