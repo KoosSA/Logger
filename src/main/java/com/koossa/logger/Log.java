@@ -20,7 +20,7 @@ public class Log {
 	private static File folder;
 	private static boolean debug;
 	private static int maxFiles = 10;
-	private static List<ILogAction> logWriteActions = new ArrayList<>();
+	protected static List<ILogWriteAction> logWriteActions = new ArrayList<>();
 	
 	/**
 	 * Initialises the logger for the current {@link Thread}.
@@ -62,9 +62,6 @@ public class Log {
 			Log.init(folder, debug);
 		}
 		instances.get(name).info(obj, message);
-		logWriteActions.forEach(a->{
-			a.onEvent();
-		});
 	}
 	
 	/**
@@ -78,9 +75,6 @@ public class Log {
 			Log.init(folder, debug);
 		}
 		instances.get(name).info(clazz, message);
-		logWriteActions.forEach(a->{
-			a.onEvent();
-		});
 	}
 	
 	/**
@@ -94,9 +88,6 @@ public class Log {
 			Log.init(folder, debug);
 		}
 		instances.get(name).error(obj, message);
-		logWriteActions.forEach(a->{
-			a.onEvent();
-		});
 	}
 	
 	/**
@@ -110,9 +101,6 @@ public class Log {
 			Log.init(folder, debug);
 		}
 		instances.get(name).error(clazz, message);
-		logWriteActions.forEach(a->{
-			a.onEvent();
-		});
 	}
 	
 	/**
@@ -127,9 +115,6 @@ public class Log {
 			Log.init(folder, debug);
 		}
 		instances.get(name).debug(obj, message);
-		logWriteActions.forEach(a->{
-			a.onEvent();
-		});
 	}
 	
 	/**
@@ -144,9 +129,6 @@ public class Log {
 			Log.init(folder, debug);
 		}
 		instances.get(name).debug(clazz, message);
-		logWriteActions.forEach(a->{
-			a.onEvent();
-		});
 	}
 	
 	/**
@@ -175,7 +157,7 @@ public class Log {
 		instances.clear();
 	}
 	
-	public static void addOnLogWriteEvent(ILogAction action) {
+	public static void addOnLogWriteEvent(ILogWriteAction action) {
 		logWriteActions.add(action);
 	}
 

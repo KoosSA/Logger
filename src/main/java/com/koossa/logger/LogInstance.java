@@ -92,6 +92,10 @@ public class LogInstance {
 		message = format.format(Calendar.getInstance().getTime()) + " DEBUG: {" + clazz.getName() + "} >>> " + message;
 		System.out.println(message);
 		builder.append(message + "\n");
+		for ( ILogWriteAction action : Log.logWriteActions) {
+			action.onEvent(message, builder.toString());
+		}
+		
 	}
 	
 	protected void debug(Object obj, String message) {
@@ -101,30 +105,45 @@ public class LogInstance {
 		message = format.format(Calendar.getInstance().getTime()) + " DEBUG: {" + obj.getClass().getName() + "} >>> " + message;
 		System.out.println(message);
 		builder.append(message + "\n");
+		for ( ILogWriteAction action : Log.logWriteActions) {
+			action.onEvent(message, builder.toString());
+		}
 	}
 	
 	protected void info(Class<?> clazz, String message) {
 		message = format.format(Calendar.getInstance().getTime()) + " INFO: {" + clazz.getName() + "} >>> " + message;
 		System.out.println(message);
 		builder.append(message + "\n");
+		for ( ILogWriteAction action : Log.logWriteActions) {
+			action.onEvent(message, builder.toString());
+		}
 	}
 	
 	protected void info(Object obj, String message) {
 		message = format.format(Calendar.getInstance().getTime()) + " INFO: {" + obj.getClass().getName() + "} >>> " + message;
 		System.out.println(message);
 		builder.append(message + "\n");
+		for ( ILogWriteAction action : Log.logWriteActions) {
+			action.onEvent(message, builder.toString());
+		}
 	}
 	
 	protected void error(Class<?> clazz, String message) {
 		message = format.format(Calendar.getInstance().getTime()) + " ERROR: {" + clazz.getName() + "} >>> " + message;
 		System.err.println(message);
 		builder.append(message + "\n");
+		for ( ILogWriteAction action : Log.logWriteActions) {
+			action.onEvent(message, builder.toString());
+		}
 	}
 	
 	protected void error(Object obj, String message) {
 		message = format.format(Calendar.getInstance().getTime()) + " ERROR: {" + obj.getClass().getName() + "} >>> " + message;
 		System.err.println(message);
 		builder.append(message + "\n");
+		for ( ILogWriteAction action : Log.logWriteActions) {
+			action.onEvent(message, builder.toString());
+		}
 	}
 	
 	
