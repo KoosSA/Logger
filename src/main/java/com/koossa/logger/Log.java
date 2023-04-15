@@ -1,7 +1,9 @@
 package com.koossa.logger;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,6 +20,7 @@ public class Log {
 	private static File folder;
 	private static boolean debug;
 	private static int maxFiles = 10;
+	private static List<ILogAction> logWriteActions = new ArrayList<>();
 	
 	/**
 	 * Initialises the logger for the current {@link Thread}.
@@ -59,6 +62,9 @@ public class Log {
 			Log.init(folder, debug);
 		}
 		instances.get(name).info(obj, message);
+		logWriteActions.forEach(a->{
+			a.onEvent();
+		});
 	}
 	
 	/**
@@ -72,6 +78,9 @@ public class Log {
 			Log.init(folder, debug);
 		}
 		instances.get(name).info(clazz, message);
+		logWriteActions.forEach(a->{
+			a.onEvent();
+		});
 	}
 	
 	/**
@@ -85,6 +94,9 @@ public class Log {
 			Log.init(folder, debug);
 		}
 		instances.get(name).error(obj, message);
+		logWriteActions.forEach(a->{
+			a.onEvent();
+		});
 	}
 	
 	/**
@@ -98,6 +110,9 @@ public class Log {
 			Log.init(folder, debug);
 		}
 		instances.get(name).error(clazz, message);
+		logWriteActions.forEach(a->{
+			a.onEvent();
+		});
 	}
 	
 	/**
@@ -112,6 +127,9 @@ public class Log {
 			Log.init(folder, debug);
 		}
 		instances.get(name).debug(obj, message);
+		logWriteActions.forEach(a->{
+			a.onEvent();
+		});
 	}
 	
 	/**
@@ -126,6 +144,9 @@ public class Log {
 			Log.init(folder, debug);
 		}
 		instances.get(name).debug(clazz, message);
+		logWriteActions.forEach(a->{
+			a.onEvent();
+		});
 	}
 	
 	/**
@@ -140,6 +161,22 @@ public class Log {
 		}
 		instances.get(name).dispose();
 		instances.remove(name);
+	}
+	
+	/**
+	 * * Disposes all the {@link LogInstance}s. <br>
+	 * Saves the log files. <br>
+	 * Should be done once per project.
+	 */
+	public static void disposeAll() {
+		instances.forEach( (k, i) -> {
+			i.dispose();
+		});
+		instances.clear();
+	}
+	
+	public static void addOnLogWriteEvent(ILogAction action) {
+		logWriteActions.add(action);
 	}
 
 }
