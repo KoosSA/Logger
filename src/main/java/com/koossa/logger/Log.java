@@ -20,12 +20,15 @@ public class Log {
 	private static File folder;
 	private static boolean debug;
 	private static int maxFiles = 10;
+	/**
+	 * List of all the actions to perform when a new message is added to the log.
+	 */
 	protected static List<ILogWriteAction> logWriteActions = new ArrayList<>();
 	
 	/**
 	 * Initialises the logger for the current {@link Thread}.
-	 * @param folder
-	 * @param debug
+	 * @param folder - Base folder to save the log files into
+	 * @param debug - Is the program in debug mode or not
 	 */
 	public static void init(File folder, boolean debug) {
 		Log.folder = folder;
@@ -42,7 +45,7 @@ public class Log {
 	
 	/**
 	 * Sets the maximum amount of log files to keep per folder (aka per {@link LogInstance}.
-	 * @param maxFiles
+	 * @param maxFiles - The max amount of log files to keep
 	 */
 	public static void setMaxLogFiles(int maxFiles) {
 		Log.maxFiles = maxFiles;
@@ -53,8 +56,8 @@ public class Log {
 	
 	/**
 	 * Prints an information message on the logger of the current {@link Thread}.
-	 * @param obj
-	 * @param message
+	 * @param obj - Object that throws the message
+	 * @param message - The message
 	 */
 	public static void info(Object obj, String message) {
 		String name = Thread.currentThread().getName();
@@ -66,8 +69,8 @@ public class Log {
 	
 	/**
 	 * Prints an information message on the logger of the current {@link Thread}.
-	 * @param clazz
-	 * @param message
+	 * @param clazz - Class that throws the message
+	 * @param message - The message
 	 */
 	public static void info(Class<?> clazz, String message) {
 		String name = Thread.currentThread().getName();
@@ -79,8 +82,8 @@ public class Log {
 	
 	/**
 	 * Prints an error message on the logger of the current {@link Thread}.
-	 * @param obj
-	 * @param message
+	 * @param obj - Object that throws the error
+	 * @param message - The message
 	 */
 	public static void error(Object obj, String message) {
 		String name = Thread.currentThread().getName();
@@ -92,8 +95,8 @@ public class Log {
 	
 	/**
 	 * Prints an error message on the logger of the current {@link Thread}.
-	 * @param clazz
-	 * @param message
+	 * @param clazz - Class that throws the error
+	 * @param message - The message
 	 */
 	public static void error(Class<?> clazz, String message) {
 		String name = Thread.currentThread().getName();
@@ -106,8 +109,8 @@ public class Log {
 	/**
 	 * Prints an debug message on the logger of the current {@link Thread}. <br>
 	 * Debugging should be enabled on the {@link Thread}, otherwise nothing will be printed.
-	 * @param obj
-	 * @param message
+	 * @param obj - Object that throws the message
+	 * @param message - The message
 	 */
 	public static void debug(Object obj, String message) {
 		String name = Thread.currentThread().getName();
@@ -120,8 +123,8 @@ public class Log {
 	/**
 	 * Prints an debug message on the logger of the current {@link Thread}. <br>
 	 * Debugging should be enabled on the {@link Thread}, otherwise nothing will be printed.
-	 * @param clazz
-	 * @param message
+	 * @param clazz - Class that throws the message
+	 * @param message - The message
 	 */
 	public static void debug(Class<?> clazz, String message) {
 		String name = Thread.currentThread().getName();
@@ -157,6 +160,10 @@ public class Log {
 		instances.clear();
 	}
 	
+	/**
+	 * 
+	 * @param action - Action performed when a message is added to a log file.
+	 */
 	public static void addOnLogWriteEvent(ILogWriteAction action) {
 		logWriteActions.add(action);
 	}

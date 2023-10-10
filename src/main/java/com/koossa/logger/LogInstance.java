@@ -26,8 +26,8 @@ public class LogInstance {
 	
 	/**
 	 * Initialises the Logger and prepare for receiving log commands.
-	 * @param folder
-	 * @param debug
+	 * @param folder - The folder that the log files will be stored into
+	 * @param debug - Should the debugging log be enabled or not
 	 */
 	protected void init(File folder, boolean debug) {
 		logFolder = folder;
@@ -64,7 +64,7 @@ public class LogInstance {
 	/**
 	 * Sets the max number of log files to keep on device. <br> Default 50. <br>
 	 * Should be called before init().
-	 * @param maxFiles
+	 * @param maxFiles - The max number of log files to keep
 	 */
 	protected void setMaxFiles(int maxFiles) {
 		this.maxFiles = maxFiles;
@@ -73,18 +73,26 @@ public class LogInstance {
 	/**
 	 * Sets the file extension of log files.<br> Defaults to "example.log". <br>
 	 * Should be called before init().
-	 * @param fileExt
+	 * @param fileExt - The extension that the log files should use.
 	 */
 	protected void setFileExt(String fileExt) {
 		this.fileExt = fileExt;
 	}
 	
+	/**
+	 * Generates a new Log file
+	 */
 	protected void generateFile() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd [HH_mm_ss]");
 		name = sdf.format(Calendar.getInstance().getTime()) + fileExt;
 		logFile = new File(logFolder, name);
 	}
 	
+	/**
+	 * Adds a debug level message to the log file
+	 * @param clazz - The class that throws the message
+	 * @param message - The log message
+	 */
 	protected void debug(Class<?> clazz, String message) {
 		if (!debug) {
 			return;
@@ -98,6 +106,11 @@ public class LogInstance {
 		
 	}
 	
+	/**
+	 * Adds a debug level message to the log file
+	 * @param obj - The Object that throws the message
+	 * @param message - The log message
+	 */
 	protected void debug(Object obj, String message) {
 		if (!debug) {
 			return;
@@ -110,6 +123,11 @@ public class LogInstance {
 		}
 	}
 	
+	/**
+	 * Adds a info level message to the log file
+	 * @param clazz - The class that throws the message
+	 * @param message - The log message
+	 */
 	protected void info(Class<?> clazz, String message) {
 		message = format.format(Calendar.getInstance().getTime()) + " INFO: {" + clazz.getName() + "} >>> " + message;
 		System.out.println(message);
@@ -119,6 +137,11 @@ public class LogInstance {
 		}
 	}
 	
+	/**
+	 * Adds a info level message to the log file
+	 * @param obj - The Object that throws the message
+	 * @param message - The log message
+	 */
 	protected void info(Object obj, String message) {
 		message = format.format(Calendar.getInstance().getTime()) + " INFO: {" + obj.getClass().getName() + "} >>> " + message;
 		System.out.println(message);
@@ -128,6 +151,11 @@ public class LogInstance {
 		}
 	}
 	
+	/**
+	 * Adds a error level message to the log file
+	 * @param clazz - The Object that throws the error
+	 * @param message - The log message
+	 */
 	protected void error(Class<?> clazz, String message) {
 		message = format.format(Calendar.getInstance().getTime()) + " ERROR: {" + clazz.getName() + "} >>> " + message;
 		System.err.println(message);
@@ -137,6 +165,11 @@ public class LogInstance {
 		}
 	}
 	
+	/**
+	 * Adds a error level message to the log file
+	 * @param obj - The Object that throws the error
+	 * @param message - The log message
+	 */
 	protected void error(Object obj, String message) {
 		message = format.format(Calendar.getInstance().getTime()) + " ERROR: {" + obj.getClass().getName() + "} >>> " + message;
 		System.err.println(message);
